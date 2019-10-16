@@ -1,3 +1,4 @@
+// Import config
 const keys = require('./keys');
 
 // Express app setup
@@ -8,14 +9,8 @@ const app = express();
 app.use(bodyParser.json());
 
 // MongoDB Client setup
-const mongoUrl = `mongodb://${keys.mongoUsername}:${keys.mongoPassword}@${keys.mongoHostname}:${keys.mongoPort}/${keys.mongoDatabase}`
-const MongoClient = require('mongodb').MongoClient.connect(mongoUrl, (err, db) => {
-  if (err) {
-    console.log('Lost MongoDB connection');
-  } else {
-    return db.db('component-library');
-  }
-});
+const mongoUrl = `mongodb://${keys.mongoUser}:${keys.mongoPass}@mongo:27017`;
+const MongoClient = require('mongodb').MongoClient;
 
 // Express route handlers
 app.get('/', (req, res) => {
@@ -23,8 +18,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/library', async (req, res) => {
-  const components = await MongoClient.collection('components').find({},{'_id':0, 'html':1, 'css':1});
-  res.send(components);
+  let result = await MongoClient.connect(mongoUrl, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("componentLibraryDB");
+    dbo.collection("components").findOne({}, function(err, result) {
+      if (err) throw err;
+      res.send(result);
+    });
+  });
 });
 
 app.get('/builder', (req, res) => {
@@ -41,6 +42,6 @@ app.post('/builder', async (req, res) => {
   res.send({working:true});
 });
 
-app.listen(5000, err => {
-  console.log('listening');
+app.listen(3000, err => {
+  console.log('listening on port 3000');
 });
