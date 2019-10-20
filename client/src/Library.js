@@ -19,7 +19,7 @@ class Library extends Component {
   }
 
   renderComponents() {
-    return this.state.currentComponents.map(({ component }) => component.markup);
+    return this.state.currentComponents.html;
   }
 
   render() {

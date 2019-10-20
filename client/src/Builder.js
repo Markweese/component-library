@@ -54,14 +54,14 @@ class Builder extends Component {
             type='radio'
             value='some type'
           />
-          <label for='some type'>some type</label>
+          <label>some type</label>
           <p>Select Tags</p>
           <input
             name='tags'
             type='checkbox'
             value='some tag'
           />
-          <label for='some type'>some tag</label>
+          <label>some tag</label>
           <p>Enter Desired Tags separated by a comma (just,like,this)</p>
           <input
             id='custom'
