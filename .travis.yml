@@ -1,11 +1,14 @@
 sudo: required
 services:
+  # Add docker as dependecy
   - docker
 
 before_install:
+  # Build images for testing
   - docker build -t markweldonbrewer/cl-client-test -f ./client/Dockerfile.dev ./client
 
 script:
+  # Run tests
   - docker run -e CI=true markweldonbrewer/cl-client-test npm test -- --coverage
 
 after_success:
