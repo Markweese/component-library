@@ -12,9 +12,9 @@ script:
   - docker run -e CI=true markweldonbrewer/cl-client-test npm test -- --coverage
 
 after_success:
-  - docker build -t markweldonbrewer/cl-client -f ./client
-  - docker build -t markweldonbrewer/cl-nginx -f ./nginx
-  - docker build -t markweldonbrewer/cl-server -f ./server
+  - docker build -t markweldonbrewer/cl-client ./client
+  - docker build -t markweldonbrewer/cl-nginx ./nginx
+  - docker build -t markweldonbrewer/cl-server ./server
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take images and push to docker hub
