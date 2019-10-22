@@ -1,15 +1,5 @@
 version: '3'
 services:
-  mongo:
-    restart: always
-    image: 'mongo:latest'
-    environment:
-      - MONGO_INITDB_DATABASE=componentLibraryDB
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin
-    volumes:
-      - ./data:/data/db
-      - ./mongo-init:/docker-entrypoint-initdb.d
   nginx:
     restart: always
     build:
@@ -25,8 +15,9 @@ services:
       - /app/node_modules
       - ./server:/app
     environment:
-      - MONGO_PASSWORD=admin
-      - MONGO_USERNAME=admin
+      - MONGO_DB=component-library-dev
+      - MONGO_PASSWORD=devuser123
+      - MONGO_USERNAME=devuser
   client:
     build:
       dockerfile: Dockerfile.dev

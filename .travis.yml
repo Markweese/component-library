@@ -21,3 +21,15 @@ after_success:
   - docker push markweldonbrewer/cl-client
   - docker push markweldonbrewer/cl-nginx
   - docker push markweldonbrewer/cl-server
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: component-library
+  env: ComponentLibrary-env
+  bucket_name: elasticbeanstalk-us-east-2-496054991405
+  bucket_path: component-library
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
