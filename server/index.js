@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // MongoDB Client setup
-const mongoUrl = `mongodb://${keys.mongoUser}:${keys.mongoPass}@ds137488.mlab.com:37488/${keys.dbName}`;
+const mongoUrl = `mongodb://${keys.mongoUser}:${keys.mongoPass}@ds${keys.mongoHost}.mlab.com:${keys.mongoPort}/${keys.dbName}`;
 const MongoClient = require('mongodb').MongoClient;
 
 // Express route handlers
@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/library', async (req, res) => {
+  console.log(mongoUrl);
   let result = await MongoClient.connect(mongoUrl, function(err, db) {
     if (err) throw err;
     var dbo = db.db(keys.dbName);

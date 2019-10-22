@@ -18,6 +18,8 @@ services:
       - MONGO_DB=component-library-dev
       - MONGO_PASSWORD=devuser123
       - MONGO_USERNAME=devuser
+      - MONGO_PORT=37488
+      - MONGO_HOST=137488
   client:
     build:
       dockerfile: Dockerfile.dev
